@@ -1,0 +1,267 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "User profile with loyalty points, wallet, and contact information",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "User ID matching auth UID"
+        },
+        "name": {
+          "type": "string",
+          "description": "Full name of the user",
+          "maxLength": 100
+        },
+        "phone": {
+          "type": "string",
+          "description": "Phone number with country code",
+          "maxLength": 20
+        },
+        "avatar": {
+          "type": "string",
+          "description": "Avatar image URL",
+          "maxLength": 500
+        },
+        "walletBalance": {
+          "type": "number",
+          "description": "Wallet balance in Yemeni Riyal"
+        },
+        "loyaltyPoints": {
+          "type": "number",
+          "description": "Loyalty reward points"
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "ISO timestamp of last update"
+        }
+      },
+      "required": ["id", "name", "phone", "walletBalance", "loyaltyPoints"]
+    },
+    "Address": {
+      "title": "Address",
+      "description": "Delivery address saved by user",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique address ID"
+        },
+        "userId": {
+          "type": "string",
+          "description": "Owner user ID"
+        },
+        "title": {
+          "type": "string",
+          "description": "Label for address (e.g. Home, Office)",
+          "maxLength": 60
+        },
+        "city": {
+          "type": "string",
+          "description": "Yemen governorate/city",
+          "maxLength": 60
+        },
+        "area": {
+          "type": "string",
+          "description": "Neighborhood/district",
+          "maxLength": 80
+        },
+        "street": {
+          "type": "string",
+          "description": "Street name or landmark",
+          "maxLength": 150
+        },
+        "building": {
+          "type": "string",
+          "description": "Building/house number",
+          "maxLength": 80
+        },
+        "details": {
+          "type": "string",
+          "description": "Additional delivery instructions",
+          "maxLength": 300
+        },
+        "isDefault": {
+          "type": "boolean",
+          "description": "Whether this is the default address"
+        }
+      },
+      "required": ["id", "userId", "title", "city", "area", "street", "building"]
+    },
+    "Order": {
+      "title": "Order",
+      "description": "Grocery order placed by user",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Order ID"
+        },
+        "orderNumber": {
+          "type": "string",
+          "description": "Short human-readable order number",
+          "maxLength": 30
+        },
+        "userId": {
+          "type": "string",
+          "description": "User ID who placed the order"
+        },
+        "status": {
+          "type": "string",
+          "description": "Order status enum (pending, preparing, on_the_way, delivered, cancelled)",
+          "enum": ["pending", "preparing", "on_the_way", "delivered", "cancelled"]
+        },
+        "items": {
+          "type": "string",
+          "description": "JSON serialized order items array",
+          "maxLength": 10000
+        },
+        "subtotal": {
+          "type": "number",
+          "description": "Cart items subtotal in YER"
+        },
+        "deliveryFee": {
+          "type": "number",
+          "description": "Delivery fee in YER"
+        },
+        "discount": {
+          "type": "number",
+          "description": "Applied discount amount in YER"
+        },
+        "total": {
+          "type": "number",
+          "description": "Final payable amount in YER"
+        },
+        "paymentMethod": {
+          "type": "string",
+          "description": "Payment method (cash, hasib, kuraimi, flooss)",
+          "maxLength": 30
+        },
+        "deliverySlot": {
+          "type": "string",
+          "description": "Chosen delivery time window",
+          "maxLength": 100
+        },
+        "deliveryAddress": {
+          "type": "string",
+          "description": "Address summary string",
+          "maxLength": 300
+        },
+        "notes": {
+          "type": "string",
+          "description": "Order instructions",
+          "maxLength": 500
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "ISO timestamp"
+        }
+      },
+      "required": ["id", "orderNumber", "userId", "status", "subtotal", "deliveryFee", "total", "paymentMethod", "createdAt"]
+    },
+    "Category": {
+      "title": "Category",
+      "description": "Grocery category definition",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Category identifier" },
+        "name": { "type": "string", "description": "Category Arabic name", "maxLength": 100 },
+        "iconName": { "type": "string", "description": "Icon identifier", "maxLength": 50 },
+        "bgPastel": { "type": "string", "description": "Pastel color hex code", "maxLength": 20 },
+        "itemCount": { "type": "number", "description": "Number of available products" },
+        "image": { "type": "string", "description": "Category cover image URL", "maxLength": 500 }
+      },
+      "required": ["id", "name", "image"]
+    },
+    "Product": {
+      "title": "Product",
+      "description": "Grocery product item",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Product ID" },
+        "name": { "type": "string", "description": "Product Arabic name", "maxLength": 150 },
+        "nameEn": { "type": "string", "description": "Product English name", "maxLength": 150 },
+        "price": { "type": "number", "description": "Current price in YER" },
+        "originalPrice": { "type": "number", "description": "Original strike-through price" },
+        "unit": { "type": "string", "description": "Unit (e.g. 1كجم, حبة)", "maxLength": 50 },
+        "availableUnits": { "type": "array", "description": "List of alternative pack sizes", "items": { "type": "string" } },
+        "image": { "type": "string", "description": "Image URL", "maxLength": 500 },
+        "categoryId": { "type": "string", "description": "Category ID", "maxLength": 50 },
+        "categoryName": { "type": "string", "description": "Category display name", "maxLength": 100 },
+        "subcategory": { "type": "string", "description": "Subcategory name", "maxLength": 100 },
+        "badge": { "type": "string", "description": "Badge text", "maxLength": 50 },
+        "badgeColor": { "type": "string", "description": "Badge color style", "maxLength": 20 },
+        "rating": { "type": "number", "description": "Average user rating" },
+        "reviewCount": { "type": "number", "description": "Number of reviews" },
+        "isFresh": { "type": "boolean", "description": "Whether fresh perishable item" },
+        "isYemeniLocal": { "type": "boolean", "description": "Whether local Yemeni product" },
+        "inStock": { "type": "boolean", "description": "Stock availability status" },
+        "description": { "type": "string", "description": "Product description", "maxLength": 1000 },
+        "brand": { "type": "string", "description": "Brand name", "maxLength": 100 },
+        "origin": { "type": "string", "description": "Origin city or country", "maxLength": 100 },
+        "tags": { "type": "array", "description": "Search tags", "items": { "type": "string" } }
+      },
+      "required": ["id", "name", "price", "unit", "image", "categoryId", "categoryName", "inStock", "description"]
+    },
+    "Banner": {
+      "title": "Banner",
+      "description": "Promotional banner",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Banner ID" },
+        "title": { "type": "string", "description": "Banner title text", "maxLength": 150 },
+        "subtitle": { "type": "string", "description": "Banner subtitle", "maxLength": 200 },
+        "image": { "type": "string", "description": "Banner image URL", "maxLength": 500 },
+        "bgGrad": { "type": "string", "description": "Tailwind background gradient classes", "maxLength": 100 }
+      },
+      "required": ["id", "title", "image"]
+    },
+    "BundleOffer": {
+      "title": "BundleOffer",
+      "description": "Saving grocery bundle package",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Bundle ID" },
+        "title": { "type": "string", "description": "Bundle title", "maxLength": 150 },
+        "desc": { "type": "string", "description": "Bundle items description", "maxLength": 500 },
+        "originalPrice": { "type": "number", "description": "Original combined price" },
+        "price": { "type": "number", "description": "Discounted package price" },
+        "saving": { "type": "number", "description": "Total savings in YER" },
+        "image": { "type": "string", "description": "Bundle display image URL", "maxLength": 500 },
+        "productIds": { "type": "array", "description": "Included product IDs", "items": { "type": "string" } }
+      },
+      "required": ["id", "title", "originalPrice", "price", "saving", "image", "productIds"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "User profile document"
+    },
+    "/users/{userId}/addresses/{addressId}": {
+      "schema": "Address",
+      "description": "User saved delivery addresses"
+    },
+    "/users/{userId}/orders/{orderId}": {
+      "schema": "Order",
+      "description": "User order history"
+    },
+    "/categories/{categoryId}": {
+      "schema": "Category",
+      "description": "Public grocery categories"
+    },
+    "/products/{productId}": {
+      "schema": "Product",
+      "description": "Public grocery products"
+    },
+    "/banners/{bannerId}": {
+      "schema": "Banner",
+      "description": "Public promotional banners"
+    },
+    "/bundle_offers/{bundleId}": {
+      "schema": "BundleOffer",
+      "description": "Public saving bundles"
+    }
+  }
+}

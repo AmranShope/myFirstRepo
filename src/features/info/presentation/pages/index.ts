@@ -1,0 +1,9 @@
+export { MorePage, MorePage as MoreView } from './MorePage';
+export { AboutAppPage, AboutAppPage as AboutAppView } from './AboutAppPage';
+export { AboutUsMenuPage, AboutUsMenuPage as AboutUsMenuView } from './AboutUsMenuPage';
+export { PrivacyPolicyPage, PrivacyPolicyPage as PrivacyPolicyView } from './PrivacyPolicyPage';
+export { PrivacySecurityPage, PrivacySecurityPage as PrivacySecurityView } from './PrivacySecurityPage';
+export { ReturnPolicyPage, ReturnPolicyPage as ReturnPolicyView } from './ReturnPolicyPage';
+export { OnboardingPage, OnboardingPage as OnboardingView } from './OnboardingPage';
+export { SplashPage, SplashPage as SplashView } from './SplashPage';
+export { DiscountCouponsPage, DiscountCouponsPage as DiscountCouponsView } from './DiscountCouponsPage';

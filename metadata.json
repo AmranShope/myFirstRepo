@@ -1,0 +1,6 @@
+{
+  "name": "Troolly - ترولي",
+  "description": "تطبيق ترولي لطلب البقالة والتسوق السريع في اليمن - Troolly Grocery Shopping & Delivery App for Yemen",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
